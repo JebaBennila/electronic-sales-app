@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="salesApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electronic Sales App</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="app.js"></script>
+</head>
+<body ng-controller="MainController">
+
+  <div class="container">
+
+    <!-- LOGIN PAGE -->
+    <div ng-if="page === 'login'" class="card">
+      <h2>Login</h2>
+      <input type="text" ng-model="login.username" placeholder="Username">
+      <input type="password" ng-model="login.password" placeholder="Password">
+      <button ng-click="loginUser()">Login</button>
+      <p class="error" ng-if="errorMessage">{{errorMessage}}</p>
+    </div>
+
+    <!-- PRODUCT CATALOG -->
+    <div ng-if="page === 'catalog'" class="card">
+      <h2>Product Catalog</h2>
+      <div class="products">
+        <div class="product">
+          <img src="images/headphone.jpg" alt="Wireless Headphone">
+          <h3>Wireless Headphone</h3>
+          <p>$149.99</p>
+          <button ng-click="orderProduct({name: 'Wireless Headphone', price: 149.99})">Order</button>
+        </div>
+        <div class="product">
+          <img src="images/smartwatch.jpg" alt="Smartwatch">
+          <h3>Smartwatch</h3>
+          <p>$199.99</p>
+          <button ng-click="orderProduct({name: 'Smartwatch', price: 199.99})">Order</button>
+        </div>
+        <div class="product">
+          <img src="images/speaker.jpg" alt="Bluetooth Speaker">
+          <h3>Bluetooth Speaker</h3>
+          <p>$74.99</p>
+          <button ng-click="orderProduct({name: 'Bluetooth Speaker', price: 74.99})">Order</button>
+        </div>
+        <div class="product">
+          <img src="images/mouse.jpg" alt="Wireless Mouse">
+          <h3>Wireless Mouse</h3>
+          <p>$19.99</p>
+          <button ng-click="orderProduct({name: 'Wireless Mouse', price: 19.99})">Order</button>
+        </div>
+        <div class="product">
+          <img src="images/monitor.jpg" alt="4K Monitor">
+          <h3>4K Monitor</h3>
+          <p>$299.99</p>
+          <button ng-click="orderProduct({name: '4K Monitor', price: 299.99})">Order</button>
+        </div>
+        <div class="product">
+          <img src="images/laptop.jpg" alt="Laptop">
+          <h3>Laptop</h3>
+          <p>$999.99</p>
+          <button ng-click="orderProduct({name: 'Laptop', price: 999.99})">Order</button>
+        </div>
+      </div>
+      <button class="secondary" ng-click="viewOrders()">My Orders</button>
+      <button class="logout" ng-click="logout()">Logout</button>
+    </div>
+
+    <!-- ORDER HISTORY -->
+    <div ng-if="page === 'orders'" class="card">
+      <h2>My Orders</h2>
+      <div ng-repeat="order in orders" class="order-item">
+        <h3>Order #{{$index + 1}}</h3>
+        <ul>
+          <li ng-repeat="p in order.products">{{p.name}} - ${{p.price}}</li>
+        </ul>
+      </div>
+      <button class="secondary" ng-click="backToCatalog()">Back to Catalog</button>
+    </div>
+
+  </div>
+</body>
+</html>
